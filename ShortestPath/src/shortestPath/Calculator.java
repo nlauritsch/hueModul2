@@ -30,6 +30,8 @@ public class Calculator {
 		IStrategy strategy = strategyFactory.generateStrategy(strategyName);
 
 		Map<String, Node> allNodes = createNodes(matrix);
+		long startTime = System.currentTimeMillis();
+
 		strategy.computePaths(allNodes.get(getKey(0, 0)));
 
 		for (Node v : allNodes.values()) {
@@ -39,6 +41,11 @@ public class Calculator {
 		}
 		List<Node> shortestPathTo = strategy.getShortestPathTo(allNodes
 				.get(getKey(6, 3)));
+
+		long timeResult = System.currentTimeMillis() - startTime;
+
+		System.out.println("time: " + timeResult);
+		System.out.println(shortestPathTo.toString());
 
 	}
 
@@ -86,12 +93,12 @@ public class Calculator {
 				if (!edges.isEmpty()) {
 					Edge[] edgesArray = new Edge[edges.size()];
 					int e = 0;
-					String log = "";
+
 					for (Edge edge : edges) {
 						edgesArray[e] = edge;
 						e++;
-						log += edge + ", ";
 					}
+
 					node.setSuccessor(edgesArray);
 				}
 			}
